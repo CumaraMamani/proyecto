@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Administrar Habitaciones{% endblock %}
+
+{% block content %}
+<h2>Habitaciones</h2>
+
+<!-- Si quieres un botón para refrescar o aplicar filtros -->
+<form method="GET" action="{{ url_for('main.admin_rooms') }}" class="mb-3">
+    <!-- Puedes agregar filtros aquí si lo deseas -->
+    <button type="submit" class="btn btn-secondary">Actualizar</button>
+</form>
+
+<a href="{{ url_for('main.new_room') }}" class="btn btn-primary mb-3">Nueva Habitación</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for room in rooms %}
+        <tr>
+            <td>{{ room.room_number }}</td>
+            <td>{{ room.room_type }}</td>
+            <td>{{ room.price }}</td>
+            <td>
+                <a href="{{ url_for('main.edit_room', id=room.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{{ url_for('main.delete_room', id=room.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta habitación?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

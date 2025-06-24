@@ -1,0 +1,60 @@
+<!-- templates/main/reservations.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Mis Reservas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Mis Reservas</h2>
+
+  {% if reservations %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Personas</th>
+            <th>Habitación</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for res in reservations %}
+            <tr>
+              <td>{{ res.id }}</td>
+              <td>{{ res.check_in_date.strftime('%d/%m/%Y') }}</td>
+              <td>{{ res.check_out_date.strftime('%d/%m/%Y') }}</td>
+              <td>{{ res.num_people }}</td>
+              <td>{{ res.room.room_type }} ({{ res.room.room_number }})</td>
+              <td>
+                {% if res.status == 'Confirmada' %}
+                  <span class="badge bg-success">{{ res.status }}</span>
+                {% elif res.status == 'Pendiente' %}
+                  <span class="badge bg-warning text-dark">{{ res.status }}</span>
+                {% elif res.status == 'Cancelada' %}
+                  <span class="badge bg-danger">{{ res.status }}</span>
+                {% else %}
+                  {{ res.status }}
+                {% endif %}
+              </td>
+              <td>
+                {% if res.status == 'Pendiente' %}
+                  <a href="{{ url_for('main.cancel_reservation', id=res.id) }}" class="btn btn-danger btn-sm">Cancelar</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      No tienes reservas aún.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

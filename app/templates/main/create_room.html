@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Habitación{% endblock %}
+
+{% block content %}
+<h2>Crear Nueva Habitación</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.room_number.label }} {{ form.room_number(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.room_type.label }} {{ form.room_type(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.price.label }} {{ form.price(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

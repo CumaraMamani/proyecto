@@ -23,7 +23,7 @@ def register():
         flash('¡Registro exitoso! Ahora puedes iniciar sesión.', 'success')
         return redirect(url_for('auth.login'))
     
-    return render_template('auth/register.html', form=form)
+    return render_template('main/register.html', form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():

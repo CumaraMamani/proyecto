@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Habitaciones Disponibles{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Habitaciones Disponibles</h2>
+
+    {% if rooms %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for room in rooms %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Habitación {{ room.room_number }}</h5>
+                        <p class="card-text">Tipo: {{ room.room_type }}</p>
+                        <p class="card-text">Precio: ${{ room.price }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">No hay habitaciones disponibles en este momento.</div>
+    {% endif %}
+</div>
+{% endblock %}
